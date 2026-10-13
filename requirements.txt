@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+great_expectations
+mlflow
+pyspark
+fastapi
+pydantic
+email-validator
+pyarrow

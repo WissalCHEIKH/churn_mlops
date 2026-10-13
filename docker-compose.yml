@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  churn_pipeline:
+    build: .
+    container_name: churn_mlops_container
+    volumes:
+      - .:/app
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/default-java
+    command: python include/train.py
+
+  airflow:
+    image: apache/airflow:2.5.3
+    container_name: airflow-standalone
+    ports:
+      - "8888:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./include:/opt/airflow/include
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.default
+    command: standalone
